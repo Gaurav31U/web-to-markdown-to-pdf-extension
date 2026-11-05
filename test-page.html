@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MarkPDF Test Page - Long Multi-Page Article & Images</title>
+  <style>
+    :root {
+      --primary: #4F46E5;
+      --bg: #F3F4F6;
+      --card-bg: #FFFFFF;
+      --text: #1F2937;
+      --border: #E5E7EB;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      margin: 0;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    header.page-header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 30px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    header h1 {
+      margin: 0 0 10px 0;
+      color: var(--primary);
+    }
+
+    .layout-grid {
+      display: grid;
+      grid-template-columns: 2.5fr 1fr;
+      gap: 24px;
+    }
+
+    article.main-article {
+      background: var(--card-bg);
+      padding: 36px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    aside.sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .sidebar-widget {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    pre {
+      background: #1E293B;
+      color: #E2E8F0;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 13px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 10px 14px;
+      text-align: left;
+    }
+
+    th {
+      background: #F8FAFC;
+    }
+
+    blockquote {
+      border-left: 4px solid var(--primary);
+      margin: 20px 0;
+      padding: 12px 20px;
+      background: #EEF2FF;
+      color: #312E81;
+      border-radius: 0 8px 8px 0;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 20px;
+      background: #EEF2FF;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .instruction-box {
+      background: #ECFDF5;
+      border: 1px solid #A7F3D0;
+      color: #065F46;
+      padding: 18px 22px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+
+    .article-image {
+      width: 100%;
+      max-height: 380px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin: 16px 0 6px 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    figure {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    figcaption {
+      font-size: 12px;
+      color: #6B7280;
+      font-style: italic;
+      margin-top: 6px;
+    }
+
+    .diagram-svg-container {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 8px;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="page-header">
+      <span class="badge">MarkPDF Extension Playground</span>
+      <h1>Web Element to Markdown & Multi-Page PDF</h1>
+      <p>Test multi-page pagination for long elements and verified image rendering in PDF exports.</p>
+    </header>
+
+    <div class="instruction-box">
+      <strong>💡 How to test:</strong>
+      <ol style="margin: 8px 0 0 20px; padding: 0;">
+        <li>Open the <strong>MarkPDF</strong> extension from your toolbar.</li>
+        <li>Click <strong>"🎯 Pick Element"</strong> and select the main article below (or click <strong>"📰 Auto Article"</strong>).</li>
+        <li>Notice that MarkPDF captures the full article along with all images, tables, and diagrams!</li>
+        <li>In the export viewer, notice it automatically calculates and divides the long document into <strong>Page 1 of 3</strong>, <strong>Page 2 of 3</strong>, etc., and all images are fully loaded and rendered!</li>
+      </ol>
+    </div>
+
+    <div class="layout-grid">
+      <!-- Main Content Article (Multi-Page Content) -->
+      <article class="main-article" id="sample-long-article">
+        <span class="badge">Comprehensive Technical Report</span>
+        <h2>The Architecture of Modern Client-Side Web Applications</h2>
+        <p>
+          As web browsers and rendering engines mature, modern applications increasingly perform complex compilation, conversion, and document synthesis entirely on the user's device. Tasks that once required heavyweight backend clusters—such as parsing arbitrary HTML trees, synthesizing Markdown formatting, and outputting vector PDF files—now execute with sub-millisecond latency within the browser sandbox.
+        </p>
+
+        <!-- Image 1: Cloud Architecture Photo -->
+        <figure>
+          <img
+            src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80"
+            alt="High-Performance Microprocessor and Silicon Architecture"
+            class="article-image"
+          >
+          <figcaption>Figure 1: Silicon-level hardware acceleration powers modern in-browser vector rendering engines.</figcaption>
+        </figure>
+
+        <h3>1. Architectural Paradigms: Server vs. Client Processing</h3>
+        <p>
+          Traditional document conversion relied on server-side headless browsers like Puppeteer or Chromium instances running inside Docker containers. While functional, this paradigm suffered from high server maintenance overhead, cold-start latency spikes, and severe data privacy risks, as confidential customer documents had to be transmitted across public network hops.
+        </p>
+        <p>
+          In contrast, client-side browser extensions operate under the user's direct context. By executing directly in the browser's active tab, extensions like MarkPDF read DOM elements in their rendered state, preserving computed layouts, inline graphics, and authenticated styles without leaking private information.
+        </p>
+
+        <!-- SVG Diagram Example -->
+        <div class="diagram-svg-container">
+          <svg width="420" height="120" viewBox="0 0 420 120" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="25" width="100" height="70" rx="8" fill="#EEF2FF" stroke="#6366F1" stroke-width="2"/>
+            <text x="60" y="55" font-family="sans-serif" font-size="12" font-weight="bold" fill="#312E81" text-anchor="middle">DOM Element</text>
+            <text x="60" y="72" font-family="sans-serif" font-size="10" fill="#4F46E5" text-anchor="middle">Hover & Pick</text>
+
+            <path d="M 115 60 L 145 60" stroke="#4F46E5" stroke-width="2" marker-end="url(#arrow)"/>
+
+            <rect x="155" y="25" width="110" height="70" rx="8" fill="#F0FDF4" stroke="#22C55E" stroke-width="2"/>
+            <text x="210" y="55" font-family="sans-serif" font-size="12" font-weight="bold" fill="#14532D" text-anchor="middle">Clean Markdown</text>
+            <text x="210" y="72" font-family="sans-serif" font-size="10" fill="#15803D" text-anchor="middle">HTML to MD AST</text>
+
+            <path d="M 270 60 L 300 60" stroke="#22C55E" stroke-width="2"/>
+
+            <rect x="310" y="25" width="100" height="70" rx="8" fill="#FEF2F2" stroke="#EF4444" stroke-width="2"/>
+            <text x="360" y="55" font-family="sans-serif" font-size="12" font-weight="bold" fill="#7F1D1D" text-anchor="middle">Vector PDF</text>
+            <text x="360" y="72" font-family="sans-serif" font-size="10" fill="#B91C1C" text-anchor="middle">Multi-Page A4</text>
+          </svg>
+        </div>
+
+        <h3>2. Performance Benchmark Analysis</h3>
+        <p>
+          The table below demonstrates latency and privacy trade-offs measured across 10,000 document transformations:
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Pipeline Model</th>
+              <th>Mean Latency</th>
+              <th>Page Count Support</th>
+              <th>Network Overhead</th>
+              <th>Privacy Grade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Remote Cloud Lambda</td>
+              <td>1,420 ms</td>
+              <td>Variable</td>
+              <td>Full Payload Upload</td>
+              <td>C (Exposed to 3rd Party)</td>
+            </tr>
+            <tr>
+              <td>Edge Worker Proxy</td>
+              <td>380 ms</td>
+              <td>Limited</td>
+              <td>Encrypted Transit</td>
+              <td>B (Edge Decrypted)</td>
+            </tr>
+            <tr>
+              <td>MarkPDF Local Extension</td>
+              <td>12 ms</td>
+              <td>Multi-Page Paged</td>
+              <td>0 KB (Strictly Offline)</td>
+              <td>A+ (100% On-Device)</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Image 2: Data Analytics Graphic -->
+        <figure>
+          <img
+            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80"
+            alt="Data Analytics and Multi-Page Information Graph"
+            class="article-image"
+          >
+          <figcaption>Figure 2: Performance metrics and zero-latency local document pagination.</figcaption>
+        </figure>
+
+        <h3>3. Real-Time Algorithm Implementation</h3>
+        <p>
+          The algorithm identifies candidate boundary boxes using structural AST traversal:
+        </p>
+
+        <pre><code class="language-javascript">// Intelligent multi-page pagination algorithm
+function paginateDocument(blocks, maxPageHeight) {
+  const pages = [];
+  let currentPage = [];
+  let currentHeight = 0;
+
+  for (const block of blocks) {
+    if (currentHeight + block.offsetHeight > maxPageHeight) {
+      pages.push(currentPage);
+      currentPage = [block];
+      currentHeight = block.offsetHeight;
+    } else {
+      currentPage.push(block);
+      currentHeight += block.offsetHeight;
+    }
+  }
+  if (currentPage.length > 0) pages.push(currentPage);
+  return pages;
+}</code></pre>
+
+        <blockquote>
+          "By decomposing the rendered document into standard printable dimensions, MarkPDF ensures exact pagination without awkward splits through images or tables."
+        </blockquote>
+
+        <h3>Go deeper</h3>
+        <p><strong>Patterns 5</strong></p>
+        <div style="margin: 16px 0;">
+          <div style="font-weight: 600; font-size: 15px; margin-bottom: 4px;">Optimize the Hot Path</div>
+          <p style="color: #4B5563; margin-bottom: 14px;">When a small fraction of code or data dominates response time.</p>
+
+          <div style="font-weight: 600; font-size: 15px; margin-bottom: 4px;">Partition Workload</div>
+          <p style="color: #4B5563; margin-bottom: 14px;">When no single server can handle all requests or data.</p>
+
+          <div style="font-weight: 600; font-size: 15px; margin-bottom: 4px;">Add Read Replicas</div>
+          <p style="color: #4B5563; margin-bottom: 14px;">When reads dominate writes and slight replication lag is acceptable.</p>
+
+          <div style="font-weight: 600; font-size: 15px; margin-bottom: 4px;">Asynchronous Processing</div>
+          <p style="color: #4B5563; margin-bottom: 14px;">When work does not need an immediate response and can be offloaded to background workers.</p>
+
+          <div style="font-weight: 600; font-size: 15px; margin-bottom: 4px;">Auto-Scaling</div>
+          <p style="color: #4B5563; margin-bottom: 14px;">When load varies predictably or unpredictably and you want to match capacity to demand.</p>
+        </div>
+
+        <h3>4. Summary of Conclusions</h3>
+        <p>
+          Local in-browser transformation represents the future of personal archiving, documentation export, and printing. Through smart image pre-caching and vector PDF stylesheets, users receive pristine multi-page PDF documents instantaneously.
+        </p>
+
+        <ul>
+          <li>True multi-page layout with headers, footers, and page numbers</li>
+          <li>Full image decoding and rendering in vector output</li>
+          <li>100% private, zero telemetry, and instantaneous execution</li>
+        </ul>
+      </article>
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-widget">
+          <span class="badge">Control Panel</span>
+          <h3>Features Checklist</h3>
+          <ul style="list-style: none; padding-left: 0; font-size: 13px;">
+            <li>✅ Multi-Page Pagination</li>
+            <li>✅ Page 1 of N Running Footers</li>
+            <li>✅ Full Image & SVG Rendering</li>
+            <li>✅ A4, Letter, and Legal Sizing</li>
+            <li>✅ Portrait & Landscape Orientation</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-widget">
+          <span class="badge">Sidebar Element</span>
+          <h3>Try Picking Just Me</h3>
+          <p style="font-size: 13px; color: #6B7280;">
+            Hover and select this small card to test how cleanly single widgets convert into standalone single-page PDFs!
+          </p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</body>
+</html>

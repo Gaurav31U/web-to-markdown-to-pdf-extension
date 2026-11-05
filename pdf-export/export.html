@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="no-referrer">
+  <title>MarkPDF - Export Document</title>
+  <link rel="stylesheet" href="export.css">
+  <style id="dynamic-print-style"></style>
+</head>
+<body>
+  <!-- Top Navigation / Controls (Hidden during print) -->
+  <header class="export-header no-print">
+    <div class="header-left">
+      <div class="brand-group">
+        <img src="../icons/icon-32.png" alt="MarkPDF" class="brand-icon">
+        <span class="brand-name">MarkPDF</span>
+      </div>
+      <div class="doc-title-wrapper">
+        <input type="text" id="export-title-input" class="export-title-input" placeholder="Document Title">
+      </div>
+    </div>
+
+    <div class="header-controls">
+      <!-- Layout Mode -->
+      <div class="control-item">
+        <label for="select-layout-mode">Layout:</label>
+        <select id="select-layout-mode" class="select-input">
+          <option value="paged" selected>📄 Multi-Page (Paged)</option>
+          <option value="continuous">📜 Continuous Roll</option>
+        </select>
+      </div>
+
+      <!-- Theme -->
+      <div class="control-item">
+        <label for="select-theme">Theme:</label>
+        <select id="select-theme" class="select-input">
+          <option value="theme-github" selected>GitHub Clean</option>
+          <option value="theme-academic">Academic Serif</option>
+          <option value="theme-modern">Modern Sans</option>
+          <option value="theme-dark">Dark Minimal</option>
+        </select>
+      </div>
+
+      <!-- Paper Size -->
+      <div class="control-item">
+        <label for="select-size">Size:</label>
+        <select id="select-size" class="select-input">
+          <option value="a4" selected>A4</option>
+          <option value="letter">Letter</option>
+          <option value="legal">Legal</option>
+        </select>
+      </div>
+
+      <!-- Orientation -->
+      <div class="control-item">
+        <label for="select-orientation">Orient:</label>
+        <select id="select-orientation" class="select-input">
+          <option value="portrait" selected>Portrait</option>
+          <option value="landscape">Landscape</option>
+        </select>
+      </div>
+
+      <!-- Margins -->
+      <div class="control-item">
+        <label for="select-margin">Margin:</label>
+        <select id="select-margin" class="select-input">
+          <option value="normal" selected>Normal (15mm)</option>
+          <option value="compact">Compact (8mm)</option>
+          <option value="wide">Wide (25mm)</option>
+        </select>
+      </div>
+
+      <!-- Font Size -->
+      <div class="control-item">
+        <label for="select-font-size">Font:</label>
+        <select id="select-font-size" class="select-input">
+          <option value="12">12px</option>
+          <option value="14" selected>14px</option>
+          <option value="16">16px</option>
+        </select>
+      </div>
+
+      <!-- Header & Footer Toggles -->
+      <div class="toggle-group">
+        <label class="toggle-label" title="Show running page headers">
+          <input type="checkbox" id="toggle-header" class="toggle-checkbox" checked>
+          <span>Header</span>
+        </label>
+        <label class="toggle-label" title="Show running page footers (page numbers)">
+          <input type="checkbox" id="toggle-footer" class="toggle-checkbox" checked>
+          <span>Footer</span>
+        </label>
+        <label class="toggle-label" title="Show images in PDF export">
+          <input type="checkbox" id="toggle-images" class="toggle-checkbox" checked>
+          <span>Images</span>
+        </label>
+      </div>
+
+      <!-- Live Page & Image Badges -->
+      <div class="stats-badges">
+        <span class="badge-pill" id="stat-page-count" title="Calculated total pages">📄 1 Page</span>
+        <span class="badge-pill" id="stat-img-count" title="Images detected">📷 0 Images</span>
+      </div>
+
+      <!-- Actions -->
+      <div class="header-buttons">
+        <button id="btn-download-md" class="btn btn-secondary" title="Download source markdown">
+          📥 .md
+        </button>
+        <button id="btn-print-pdf" class="btn btn-primary" title="Print or save as PDF">
+          🖨️ Print / Save as PDF
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Notification Bar for Image Loading -->
+  <div id="image-status-bar" class="image-status-bar no-print" style="display: none;">
+    <span id="image-status-text">⏳ Loading images for PDF export...</span>
+  </div>
+
+  <!-- Main Viewport for Multi-Page Sheets -->
+  <main class="page-viewport" id="page-viewport">
+    <!-- Paged Container (populated with discrete .pdf-page-sheet elements) -->
+    <div id="pages-container" class="pages-container theme-github">
+      <!-- Pages will be dynamically created here -->
+    </div>
+  </main>
+
+  <!-- Hidden Sandbox used for parsing and measuring elements before pagination -->
+  <div id="measure-sandbox" class="measure-sandbox" aria-hidden="true"></div>
+
+  <!-- Scripts -->
+  <script src="../lib/markdown-to-html.js"></script>
+  <script src="export.js"></script>
+</body>
+</html>

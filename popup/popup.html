@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MarkPDF</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-brand">
+        <img src="../icons/icon-32.png" alt="MarkPDF" class="header-logo">
+        <div>
+          <h1 class="header-title">MarkPDF</h1>
+          <p class="header-subtitle">Element to Markdown & PDF</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="btn-pick-element" class="btn btn-primary btn-sm" title="Pick an element on page">
+          🎯 Pick Element
+        </button>
+        <button id="btn-auto-article" class="btn btn-secondary btn-sm" title="Auto-detect article">
+          📰 Auto Article
+        </button>
+      </div>
+    </header>
+
+    <!-- Source Info Banner -->
+    <div class="source-banner" id="source-banner" style="display: none;">
+      <div class="source-info">
+        <span class="source-label">Source:</span>
+        <span class="source-title" id="source-title">Page Title</span>
+      </div>
+      <button class="btn-icon" id="btn-clear-content" title="Clear / New">✕</button>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs">
+      <button class="tab-btn active" data-tab="tab-markdown">
+        <span>📝 Markdown</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-preview">
+        <span>👁️ Live Preview</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-settings">
+        <span>⚙️ PDF Options</span>
+      </button>
+    </div>
+
+    <!-- Tab Contents -->
+    <main class="main-content">
+      <!-- Markdown Editor Tab -->
+      <section id="tab-markdown" class="tab-pane active">
+        <div class="editor-toolbar">
+          <div class="toolbar-group">
+            <button class="tool-btn" data-tool="h1" title="Heading 1">H1</button>
+            <button class="tool-btn" data-tool="h2" title="Heading 2">H2</button>
+            <button class="tool-btn" data-tool="bold" title="Bold"><b>B</b></button>
+            <button class="tool-btn" data-tool="italic" title="Italic"><i>I</i></button>
+            <button class="tool-btn" data-tool="code" title="Code Block"><code>&lt;&gt;</code></button>
+            <button class="tool-btn" data-tool="quote" title="Quote">”</button>
+            <button class="tool-btn" data-tool="list" title="Bullet List">•</button>
+            <button class="tool-btn" data-tool="table" title="Table">⊞</button>
+          </div>
+          <div class="toolbar-stats" id="editor-stats">
+            0 words | 0 chars
+          </div>
+        </div>
+        <textarea id="markdown-input" placeholder="Click 'Pick Element' or paste your HTML / Markdown here..." spellcheck="false"></textarea>
+      </section>
+
+      <!-- Live Preview Tab -->
+      <section id="tab-preview" class="tab-pane">
+        <div id="preview-container" class="markdown-preview theme-github">
+          <!-- Rendered HTML will be injected here -->
+        </div>
+      </section>
+
+      <!-- PDF Settings Tab -->
+      <section id="tab-settings" class="tab-pane">
+        <div class="settings-form">
+          <div class="form-group">
+            <label for="doc-title-input">Document Title</label>
+            <input type="text" id="doc-title-input" class="form-input" placeholder="Document Title (shown in PDF header)">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="pdf-theme-select">Theme Style</label>
+              <select id="pdf-theme-select" class="form-select">
+                <option value="github">GitHub Clean</option>
+                <option value="academic">Academic Serif</option>
+                <option value="modern">Modern Sans</option>
+                <option value="dark">Dark Theme</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="paper-size-select">Paper Size</label>
+              <select id="paper-size-select" class="form-select">
+                <option value="a4">A4 (210 × 297mm)</option>
+                <option value="letter">US Letter (8.5 × 11in)</option>
+                <option value="legal">US Legal (8.5 × 14in)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="orientation-select">Orientation</label>
+              <select id="orientation-select" class="form-select">
+                <option value="portrait">Portrait</option>
+                <option value="landscape">Landscape</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="margin-select">Margins</label>
+              <select id="margin-select" class="form-select">
+                <option value="normal">Normal (15mm)</option>
+                <option value="compact">Compact (8mm)</option>
+                <option value="wide">Wide (25mm)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="font-size-select">Font Size</label>
+              <select id="font-size-select" class="form-select">
+                <option value="13">Small (13px)</option>
+                <option value="14" selected>Normal (14px)</option>
+                <option value="16">Medium (16px)</option>
+                <option value="18">Large (18px)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-checkboxes">
+            <label class="checkbox-label">
+              <input type="checkbox" id="check-include-header" checked>
+              <span>Include Page Header (Title, URL, Date)</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="check-include-numbers" checked>
+              <span>Include Page Numbers in Footer</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="check-include-images" checked>
+              <span>Include Images in PDF</span>
+            </label>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer Actions -->
+    <footer class="app-footer">
+      <div class="footer-left">
+        <button id="btn-copy-md" class="btn btn-outline btn-sm" title="Copy Markdown to Clipboard">
+          📋 Copy
+        </button>
+        <button id="btn-download-md" class="btn btn-outline btn-sm" title="Download .md file">
+          📥 .md
+        </button>
+      </div>
+      <div class="footer-right">
+        <button id="btn-export-pdf" class="btn btn-primary">
+          🖨️ Export to PDF
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="popup-toast" class="popup-toast"></div>
+
+  <!-- Scripts -->
+  <script src="../lib/markdown-to-html.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
+

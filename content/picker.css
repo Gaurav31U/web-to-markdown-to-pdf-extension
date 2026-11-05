@@ -1,0 +1,267 @@
+/* MarkPDF - Content Script & Element Picker Styles */
+
+#markpdf-overlay-box {
+  position: fixed !important;
+  pointer-events: none !important;
+  z-index: 2147483640 !important;
+  border: 2px solid #6366F1 !important;
+  background-color: rgba(99, 102, 241, 0.12) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.4), 0 4px 12px rgba(99, 102, 241, 0.25) !important;
+  transition: all 0.08s cubic-bezier(0.2, 0, 0, 1) !important;
+  box-sizing: border-box !important;
+  display: none;
+}
+
+#markpdf-tag-badge {
+  position: absolute !important;
+  top: -26px !important;
+  left: -2px !important;
+  background: #4F46E5 !important;
+  color: #FFFFFF !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  line-height: 1 !important;
+  padding: 4px 8px !important;
+  border-radius: 4px 4px 0 0 !important;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.15) !important;
+  white-space: nowrap !important;
+  pointer-events: none !important;
+  letter-spacing: 0.3px !important;
+}
+
+/* Floating HUD / Toolbar at top */
+#markpdf-hud-container {
+  position: fixed !important;
+  top: 16px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 2147483645 !important;
+  background: #111827 !important;
+  color: #F9FAFB !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  font-size: 13px !important;
+  border-radius: 12px !important;
+  padding: 8px 14px !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  user-select: none !important;
+  animation: markpdfFadeIn 0.2s ease-out !important;
+  max-width: 90vw !important;
+}
+
+@keyframes markpdfFadeIn {
+  from { opacity: 0; transform: translate(-50%, -10px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.markpdf-hud-brand {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font-weight: 700 !important;
+  color: #818CF8 !important;
+  font-size: 13px !important;
+}
+
+.markpdf-hud-icon {
+  width: 18px !important;
+  height: 18px !important;
+  display: inline-block !important;
+}
+
+.markpdf-hud-info {
+  background: rgba(255, 255, 255, 0.08) !important;
+  padding: 4px 10px !important;
+  border-radius: 6px !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-size: 11px !important;
+  color: #E0E7FF !important;
+  max-width: 260px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.markpdf-hud-hints {
+  display: flex !important;
+  gap: 8px !important;
+  color: #9CA3AF !important;
+  font-size: 11px !important;
+}
+
+.markpdf-kbd {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #FFFFFF !important;
+  padding: 2px 5px !important;
+  border-radius: 3px !important;
+  font-family: inherit !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+}
+
+.markpdf-hud-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  border-left: 1px solid rgba(255, 255, 255, 0.15) !important;
+  padding-left: 10px !important;
+}
+
+.markpdf-hud-btn {
+  background: #374151 !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  border-radius: 6px !important;
+  padding: 5px 10px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  transition: all 0.15s ease !important;
+}
+
+.markpdf-hud-btn:hover {
+  background: #4B5563 !important;
+}
+
+.markpdf-hud-btn-primary {
+  background: #4F46E5 !important;
+}
+
+.markpdf-hud-btn-primary:hover {
+  background: #4338CA !important;
+}
+
+.markpdf-hud-btn-close {
+  background: transparent !important;
+  color: #9CA3AF !important;
+  padding: 4px 6px !important;
+}
+
+.markpdf-hud-btn-close:hover {
+  background: rgba(239, 68, 68, 0.2) !important;
+  color: #EF4444 !important;
+}
+
+/* Quick Action Modal when element is picked */
+#markpdf-modal-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: blur(2px) !important;
+  z-index: 2147483646 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  animation: markpdfFadeIn 0.15s ease-out !important;
+}
+
+#markpdf-modal-card {
+  background: #1F2937 !important;
+  color: #F9FAFB !important;
+  width: 520px !important;
+  max-width: 92vw !important;
+  max-height: 85vh !important;
+  border-radius: 14px !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+}
+
+.markpdf-modal-header {
+  padding: 14px 18px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.markpdf-modal-title {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  color: #FFFFFF !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.markpdf-modal-body {
+  padding: 16px 18px !important;
+  overflow-y: auto !important;
+  flex: 1 !important;
+}
+
+.markpdf-preview-snippet {
+  background: #111827 !important;
+  color: #D1D5DB !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-size: 12px !important;
+  line-height: 1.5 !important;
+  padding: 12px !important;
+  border-radius: 8px !important;
+  max-height: 160px !important;
+  overflow-y: auto !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  white-space: pre-wrap !important;
+  word-break: break-word !important;
+}
+
+.markpdf-stats-row {
+  display: flex !important;
+  gap: 14px !important;
+  margin-top: 10px !important;
+  font-size: 11px !important;
+  color: #9CA3AF !important;
+}
+
+.markpdf-modal-footer {
+  padding: 12px 18px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 8px !important;
+  background: #1A2231 !important;
+}
+
+/* Toast Notifications */
+#markpdf-toast-container {
+  position: fixed !important;
+  bottom: 24px !important;
+  right: 24px !important;
+  z-index: 2147483647 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  pointer-events: none !important;
+}
+
+.markpdf-toast {
+  background: #111827 !important;
+  color: #F9FAFB !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 10px 16px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  animation: markpdfToastIn 0.2s ease-out !important;
+  pointer-events: auto !important;
+}
+
+@keyframes markpdfToastIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+

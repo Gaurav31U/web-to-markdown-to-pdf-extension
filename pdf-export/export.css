@@ -1,0 +1,700 @@
+/* MarkPDF - Multi-Page Vector PDF Export Styles */
+
+:root {
+  --primary: #4F46E5;
+  --primary-hover: #4338CA;
+  --bg-page: #4B5563; /* Slate backdrop behind white paper sheets */
+  --paper-bg: #FFFFFF;
+  --text-color: #1F2937;
+  --border-color: #E5E7EB;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg-page);
+  color: var(--text-color);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Header Toolbar */
+.export-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #111827;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 260px;
+}
+
+.brand-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
+}
+
+.brand-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #818CF8;
+}
+
+.doc-title-wrapper {
+  flex: 1;
+  max-width: 320px;
+}
+
+.export-title-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  color: #FFFFFF;
+  padding: 5px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  outline: none;
+  transition: all 0.15s;
+}
+
+.export-title-input:focus {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: #818CF8;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.control-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #9CA3AF;
+}
+
+.select-input {
+  background: #1F2937;
+  color: #F9FAFB;
+  border: 1px solid #374151;
+  border-radius: 6px;
+  padding: 5px 7px;
+  font-size: 12px;
+  outline: none;
+  cursor: pointer;
+}
+
+.select-input:focus {
+  border-color: #818CF8;
+}
+
+.toggle-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.toggle-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  color: #E0E7FF;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-label:hover {
+  color: #FFFFFF;
+}
+
+.toggle-checkbox {
+  accent-color: #6366F1;
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+}
+
+.stats-badges {
+  display: flex;
+  gap: 6px;
+}
+
+.badge-pill {
+  background: rgba(255, 255, 255, 0.12);
+  color: #E0E7FF;
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 8px;
+  margin-left: 6px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 13px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: #4F46E5;
+  color: #FFFFFF;
+}
+
+.btn-primary:hover {
+  background: #4338CA;
+}
+
+.btn-secondary {
+  background: #374151;
+  color: #FFFFFF;
+}
+
+.btn-secondary:hover {
+  background: #4B5563;
+}
+
+/* Image loading status banner */
+.image-status-bar {
+  background: #1E293B;
+  color: #93C5FD;
+  font-size: 12px;
+  padding: 6px 16px;
+  text-align: center;
+  border-bottom: 1px solid #334155;
+}
+
+/* Page Viewport */
+.page-viewport {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 16px 60px 16px;
+  overflow-y: auto;
+}
+
+.pages-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px; /* Visual space between pages on screen */
+  width: 100%;
+}
+
+/* Discrete Multi-Page Paper Sheet */
+.pdf-page-sheet {
+  background: var(--paper-bg);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all 0.2s;
+  overflow: hidden;
+}
+
+/* Page Running Header */
+.page-header {
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid #E5E7EB;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #6B7280;
+  flex-shrink: 0;
+}
+
+.page-header-title {
+  font-weight: 600;
+  color: #374151;
+  font-size: 11px;
+  max-width: 60%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.page-header-meta {
+  display: flex;
+  gap: 12px;
+}
+
+/* Document First Page Big Title */
+.doc-first-page-title {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 4px 0 14px 0;
+  color: inherit;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 8px;
+}
+
+/* Page Content Body */
+.page-content {
+  flex: 1;
+  line-height: 1.65;
+  color: inherit;
+  overflow: hidden;
+}
+
+/* Page Running Footer */
+.page-footer {
+  padding-top: 10px;
+  margin-top: 14px;
+  border-top: 1px solid #E5E7EB;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #9CA3AF;
+  flex-shrink: 0;
+}
+
+.page-number-pill {
+  font-weight: 600;
+  color: #4B5563;
+}
+
+/* Typography Inside Content */
+.page-content h1 {
+  font-size: 1.8em;
+  margin: 0.8em 0 0.4em 0;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.page-content h2 {
+  font-size: 1.4em;
+  margin: 0.8em 0 0.35em 0;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.page-content h3 {
+  font-size: 1.2em;
+  margin: 0.7em 0 0.3em 0;
+  font-weight: 600;
+}
+
+.page-content h4, .page-content h5, .page-content h6 {
+  font-size: 1.05em;
+  margin: 0.6em 0 0.3em 0;
+  font-weight: 600;
+}
+
+.page-content p {
+  margin-bottom: 0.85em;
+}
+
+.page-content a {
+  color: #2563EB;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.page-content strong,
+.page-content b {
+  font-weight: 700 !important;
+  color: #111827;
+}
+
+.theme-dark .page-content strong,
+.theme-dark .page-content b {
+  color: #FFFFFF !important;
+}
+
+.page-content blockquote {
+  border-left: 4px solid #CBD5E1;
+  padding: 6px 14px;
+  margin: 0.9em 0;
+  color: #475569;
+  background: #F8FAFC;
+  border-radius: 0 5px 5px 0;
+}
+
+.page-content code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9em;
+  background: #F1F5F9;
+  color: #0F172A;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+.page-content .code-container {
+  margin: 0.9em 0;
+}
+
+.page-content .code-block {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.page-content .code-header {
+  background: #EDF2F7;
+  padding: 4px 10px;
+  font-size: 10px;
+  font-family: ui-monospace, monospace;
+  font-weight: 600;
+  color: #64748B;
+  text-transform: uppercase;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.page-content .code-block code {
+  display: block;
+  background: transparent;
+  color: #1E293B;
+  padding: 10px 12px;
+  font-size: 11.5px;
+  line-height: 1.5;
+  overflow-x: auto;
+}
+
+.page-content .table-container {
+  margin: 0.9em 0;
+  overflow-x: auto;
+}
+
+.page-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+
+.page-content th,
+.page-content td {
+  border: 1px solid #CBD5E1;
+  padding: 6px 10px;
+}
+
+.page-content th {
+  background: #F1F5F9;
+  font-weight: 600;
+}
+
+.page-content tr:nth-child(even) td {
+  background: #F8FAFC;
+}
+
+.page-content ul,
+.page-content ol {
+  padding-left: 22px;
+  margin-bottom: 0.85em;
+}
+
+.page-content li {
+  margin-bottom: 0.3em;
+}
+
+.page-content .task-checkbox {
+  margin-right: 6px;
+}
+
+/* Image Figures */
+.page-content .markpdf-figure {
+  margin: 1em 0;
+  text-align: center;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+.page-content .markpdf-img {
+  max-width: 100%;
+  max-height: 450px;
+  object-fit: contain;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+  background: #FFFFFF;
+}
+
+.page-content .markpdf-figcaption {
+  font-size: 11px;
+  color: #6B7280;
+  margin-top: 6px;
+  font-style: italic;
+}
+
+.page-content hr.markpdf-hr {
+  border: none;
+  border-top: 1px solid #E2E8F0;
+  margin: 1.5em 0;
+}
+
+/* Hidden Measurement Sandbox */
+.measure-sandbox {
+  position: absolute;
+  visibility: hidden;
+  left: -9999px;
+  top: -9999px;
+  box-sizing: border-box;
+}
+
+/* ===================================================
+   THEMES
+   =================================================== */
+
+/* GitHub Clean Theme */
+.theme-github {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  color: #24292F;
+}
+
+.theme-github h1,
+.theme-github h2 {
+  border-bottom: 1px solid #D0D7DE;
+  padding-bottom: 0.25em;
+}
+
+/* Academic Serif Theme */
+.theme-academic {
+  font-family: "Charter", "Georgia", "Cambria", "Times New Roman", serif;
+  color: #111827;
+  line-height: 1.75;
+}
+
+.theme-academic .doc-first-page-title {
+  text-align: center;
+  font-family: inherit;
+  font-weight: normal;
+  border-bottom: 1px solid #4B5563;
+}
+
+.theme-academic blockquote {
+  font-style: italic;
+  border-left: 2px solid #6B7280;
+  background: transparent;
+  padding-left: 18px;
+}
+
+/* Modern Sans Theme */
+.theme-modern {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  color: #0F172A;
+}
+
+.theme-modern .doc-first-page-title {
+  color: #1E1B4B;
+  border-bottom-color: #6366F1;
+}
+
+.theme-modern blockquote {
+  border-left-color: #6366F1;
+  background: #EEF2FF;
+  color: #312E81;
+}
+
+/* Dark Theme */
+.theme-dark .pdf-page-sheet {
+  background: #111827 !important;
+  color: #F3F4F6 !important;
+}
+
+.theme-dark .page-header,
+.theme-dark .page-footer {
+  color: #9CA3AF !important;
+  border-color: #374151 !important;
+}
+
+.theme-dark .page-header-title {
+  color: #E5E7EB !important;
+}
+
+.theme-dark .doc-first-page-title {
+  border-color: #374151 !important;
+}
+
+.theme-dark blockquote {
+  background: #1F2937 !important;
+  border-left-color: #4B5563 !important;
+  color: #D1D5DB !important;
+}
+
+.theme-dark code {
+  background: #1F2937 !important;
+  color: #E5E7EB !important;
+}
+
+.theme-dark .code-block {
+  background: #0D1117 !important;
+  border-color: #30363D !important;
+}
+
+.theme-dark .code-header {
+  background: #161B22 !important;
+  border-color: #30363D !important;
+  color: #8B949E !important;
+}
+
+.theme-dark .code-block code {
+  color: #C9D1D9 !important;
+}
+
+.theme-dark table th,
+.theme-dark table td {
+  border-color: #374151 !important;
+}
+
+.theme-dark table th {
+  background: #1F2937 !important;
+}
+
+.theme-dark table tr:nth-child(even) td {
+  background: #161F2E !important;
+}
+
+.theme-dark a {
+  color: #60A5FA !important;
+}
+
+/* ===================================================
+   CONTINUOUS ROLL MODE
+   =================================================== */
+.continuous-mode .pdf-page-sheet {
+  min-height: auto !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+.continuous-mode .page-header {
+  display: flex !important;
+}
+
+/* ===================================================
+   PRINT MEDIA (True Vector Multi-Page PDF Generation)
+   =================================================== */
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #FFFFFF !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .page-viewport {
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+  }
+
+  .pages-container {
+    gap: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Each discrete page becomes an exact printed page */
+  .pdf-page-sheet {
+    box-shadow: none !important;
+    border: none !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Prevent trailing blank page */
+  .pdf-page-sheet:last-of-type {
+    page-break-after: auto !important;
+    break-after: auto !important;
+  }
+
+  /* Prevent awkward breaks inside elements */
+  pre,
+  .code-container,
+  table,
+  blockquote,
+  .markpdf-figure,
+  .table-container {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid !important;
+    break-after: avoid !important;
+  }
+
+  a {
+    text-decoration: none !important;
+    color: inherit !important;
+  }
+
+  a[href^="http"]::after {
+    font-size: 80% !important;
+    color: #6B7280 !important;
+    content: " (" attr(href) ")" !important;
+  }
+
+  a:has(img)::after,
+  a[href^="#"]::after {
+    content: "" !important;
+  }
+}
